@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import products from '../products';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
+import axios from 'axios';
 
 function ProductScreen() {
-  const { id } = useParams();
-  const product = products.find((p) => p._id === id);
+  const { id } = useParams(); // Extracting id from URL params
+  const [product, setProduct] = useState(null); // Initial state can be null or an empty object
 
+  useEffect(() => {
+    async function fetchProduct() {
+      try {
+        const { data } = await axios.get(`/api/products/${id}/`);
+        setProduct(data);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        // Optionally handle error state here
+      }
+    }
+
+    fetchProduct();
+  }, [id]); // Dependency on id, so useEffect runs when id changes
+
+  // Render loading or error state while fetching product
   if (!product) {
-    return <div>Product not found</div>;
+    return <div>Loading...</div>; // You can customize this loading state
   }
 
   return (
@@ -61,15 +76,15 @@ function ProductScreen() {
               </ListGroup.Item>
 
               <ListGroup.Item>
-              <Button
-                className='btn-block'
-                disabled={product.countInStock === 0}
-                type='button'
-                style={{ width: '100%', textAlign: 'center' }} // Center the button
-              >
-                Add to Cart
-              </Button>
-            </ListGroup.Item>
+                <Button
+                  className='btn-block'
+                  disabled={product.countInStock === 0}
+                  type='button'
+                  style={{ width: '100%', textAlign: 'center' }} // Center the button
+                >
+                  Add to Cart
+                </Button>
+              </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>
