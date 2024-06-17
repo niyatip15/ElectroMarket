@@ -35,7 +35,7 @@ class RegisterUserAPIView(APIView):
             return Response({'message': 'User with this email already exists.'}, status=status.HTTP_400_BAD_REQUEST)
         user = User.objects.create(
             first_name=data['name'],
-            username=data['username'],
+            username=data['email'],
             email=data['email'],
             password=make_password(data['password'])
         )
