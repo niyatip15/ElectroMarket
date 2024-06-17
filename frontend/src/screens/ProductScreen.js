@@ -6,7 +6,7 @@ import axios from 'axios';
 import Loader from '../components/Loader';
 import Message from '../components/Message'; 
 
-function ProductScreen({history}) {
+function ProductScreen() {
   const { id } = useParams(); 
   const navigate = useNavigate();
   const [qty,setQty] = useState(1)
