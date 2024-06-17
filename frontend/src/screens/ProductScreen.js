@@ -3,28 +3,37 @@ import { Link, useParams } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import axios from 'axios';
+import Loader from '../components/Loader';
+import Message from '../components/Message'; 
 
 function ProductScreen() {
-  const { id } = useParams(); // Extracting id from URL params
-  const [product, setProduct] = useState(null); // Initial state can be null or an empty object
+  const { id } = useParams(); 
+  const [product, setProduct] = useState(null); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchProduct() {
       try {
         const { data } = await axios.get(`/api/products/${id}/`);
         setProduct(data);
+        setLoading(false); 
       } catch (error) {
+        setLoading(false); 
+        setError('Failed to fetch product. Please try again later.'); 
         console.error('Error fetching product:', error);
-        // Optionally handle error state here
       }
     }
 
     fetchProduct();
-  }, [id]); // Dependency on id, so useEffect runs when id changes
+  }, [id]); 
 
-  // Render loading or error state while fetching product
-  if (!product) {
-    return <div>Loading...</div>; // You can customize this loading state
+  if (loading) {
+    return <Loader />; 
+  }
+
+  if (error) {
+    return <Message variant="danger">{error}</Message>; 
   }
 
   return (
@@ -70,7 +79,7 @@ function ProductScreen() {
                     Status:
                   </Col>
                   <Col>
-                   {product.countInStock > 0 ? 'In Stock': 'Out of Stock'}
+                    {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -80,7 +89,7 @@ function ProductScreen() {
                   className='btn-block'
                   disabled={product.countInStock === 0}
                   type='button'
-                  style={{ width: '100%', textAlign: 'center' }} // Center the button
+                  style={{ width: '100%', textAlign: 'center' }} 
                 >
                   Add to Cart
                 </Button>
