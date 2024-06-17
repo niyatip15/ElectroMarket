@@ -21,7 +21,7 @@ function CartScreen() {
   },[dispatch, id,qty])
 
   const removeFromCartHandler = (id) =>{
-    
+    dispatch(removeFromCart(id))
   }
 
   const checkoutHandler = () => {
