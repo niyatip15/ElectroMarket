@@ -32,7 +32,7 @@ function CartScreen() {
         <Col md={8}>
             <h1>Shopping Cart</h1>
             {cartItems.length === 0 ? (
-                <Message variant='info'>
+                <Message variant='info' style={{ textDecoration: 'none', color: 'inherit' }}>
                     Your cart is empty <Link to='/'>Go Back</Link>
                 </Message>
             ) : (
@@ -44,8 +44,11 @@ function CartScreen() {
                                         <Image src={item.image} alt={item.name} fluid rounded />
                                     </Col>
                                     <Col md={3}>
-                                        <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                        <Link to={`/product/${item.product}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            {item.name}
+                                        </Link>
                                     </Col>
+
 
                                     <Col md={2}>
                                         ${item.price}

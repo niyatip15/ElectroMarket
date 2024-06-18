@@ -36,7 +36,7 @@ function LoginScreen() {
             {loading && <Loader/>}
 
             <Form onSubmit={submitHandler}>
-                <Form.Group controlId='email'>
+                <Form.Group controlId='email' className='mt-3'>
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control
                         type='email'
@@ -46,7 +46,7 @@ function LoginScreen() {
                     />
                 </Form.Group>
 
-                <Form.Group controlId='password'>
+                <Form.Group controlId='password' className='mt-3'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         type='password'
@@ -56,9 +56,13 @@ function LoginScreen() {
                     />
                 </Form.Group>
 
-                <Button type='submit' variant='primary'>
-                    Login
-                </Button>
+                <Row className='mt-3'>
+                    <Col className='text-center'>
+                        <Button type='submit' variant='primary'>
+                            Login
+                        </Button>
+                    </Col>
+                </Row>
             </Form>
 
             <Row className='py-3'>

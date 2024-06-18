@@ -32,7 +32,7 @@ function RegisterScreen() {
     const submitHandler = (e) => {
         e.preventDefault();
         if(password != confirmpassword){
-            setMessage('Passwords do not Match')
+            setMessage("Passwords didn't Match")
         }else{
             dispatch(register(name, email, password))
         }
@@ -46,7 +46,7 @@ function RegisterScreen() {
             {loading && <Loader />}
 
             <Form onSubmit={submitHandler}>
-                <Form.Group controlId='name'>
+                <Form.Group controlId='name' className='mt-3'>
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                         required
@@ -56,7 +56,7 @@ function RegisterScreen() {
                         onChange={(e) => setName(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group controlId='email'>
+                <Form.Group controlId='email' className='mt-3'>
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control
                         required
@@ -66,7 +66,7 @@ function RegisterScreen() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group controlId='password'>
+                <Form.Group controlId='password' className='mt-3'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         required
@@ -76,7 +76,7 @@ function RegisterScreen() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group controlId='passwordConfirm'>
+                <Form.Group controlId='passwordConfirm' className='mt-3'>
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control
                         required
@@ -86,9 +86,13 @@ function RegisterScreen() {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </Form.Group>
-                <Button type='submit' variant='primary'>
-                    Register
-                </Button>
+                <Row className='mt-3'>
+                    <Col className='text-center'>
+                        <Button type='submit' variant='primary'>
+                            Register
+                        </Button>
+                    </Col>
+                </Row>
             </Form>
             <Row className='py-3'>
                 <Col>

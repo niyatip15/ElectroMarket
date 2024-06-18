@@ -13,12 +13,12 @@ function HomeScreen() {
     useEffect(() => {
         async function fetchProducts() {
             try {
-                const { data } = await axios.get('http://127.0.0.1:8000/api/products/');
+                const { data } = await axios.get('/api/products/');
                 setProducts(data);
                 setLoading(false);
             } catch (error) {
                 setLoading(false);
-                setError('Failed to fetch products. Please try again later.'); 
+                setError('Something went wrong. Please try again later.'); 
                 console.error('Error fetching products:', error);
             }
         }

@@ -22,7 +22,7 @@ function ProductScreen() {
         setLoading(false); 
       } catch (error) {
         setLoading(false); 
-        setError('Failed to fetch product. Please try again later.'); 
+        setError('Something went wrong. Please try again later.'); 
         console.error('Error fetching product:', error);
       }
     }
