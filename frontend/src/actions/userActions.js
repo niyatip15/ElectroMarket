@@ -8,6 +8,16 @@ import { USER_LOGIN_FAIL,
     USER_REGISTER_SUCCESS } 
     from '../constants/userConstants'
 
+    const getCSRFToken = () => {
+        const cookieValue = document.cookie
+            .split('; ')
+            .find(cookie => cookie.startsWith('csrftoken='))
+            .split('=')[1];
+        return cookieValue;
+    };
+    
+    const csrfToken = getCSRFToken();
+
     export const login = (email, password) => async (dispatch) => {
         try {
             dispatch({
@@ -15,7 +25,8 @@ import { USER_LOGIN_FAIL,
             });
             const config ={
                 headers:{
-                    'Content-type':'application/json'
+                    'Content-type':'application/json',
+                    'X-CSRFToken': csrfToken,
                 }
             }
             const {data} = await axios.post(
@@ -54,7 +65,8 @@ export const register = (name,email, password) => async (dispatch) => {
         });
         const config ={
             headers:{
-                'Content-type':'application/json'
+                'Content-type':'application/json',
+                'X-CSRFToken': csrfToken,
             }
         }
         const {data} = await axios.post(
