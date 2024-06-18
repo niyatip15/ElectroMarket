@@ -1,10 +1,10 @@
 from rest_framework.views import APIView
 from django.utils.decorators import method_decorator
-from django.middleware.csrf import get_token
+from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.generics import ListAPIView,RetrieveAPIView
-from rest_framework import permissions,authentication
+from rest_framework import authentication
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login
@@ -31,6 +31,22 @@ class GetUserProfileAPIView(ListAPIView):
     
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id)
+class UpdateUserProfile(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def put(self, request, *args, **kwargs):
+        user = request.user
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            user.first_name = data.get('name', user.first_name)
+            user.username = data.get('email', user.username)
+            user.email = data.get('email', user.email)
+            if 'password' in data and data['password']:
+                user.password = make_password(data['password'])
+            user.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class RegisterUserAPIView(APIView):
     permission_classes = [AllowAny]
