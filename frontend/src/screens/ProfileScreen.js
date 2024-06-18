@@ -68,7 +68,7 @@ function ProfileScreen({ history }) {
             {loading && <Loader />}
 
             <Form onSubmit={submitHandler}>
-                <Form.Group controlId='name'>
+                <Form.Group controlId='name' className='mt-3'>
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                         required
@@ -78,7 +78,7 @@ function ProfileScreen({ history }) {
                         onChange={(e) => setName(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group controlId='email'>
+                <Form.Group controlId='email' className='mt-3'>
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control
                         required
@@ -88,7 +88,7 @@ function ProfileScreen({ history }) {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group controlId='password'>
+                <Form.Group controlId='password'className='mt-3'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         type='password'
@@ -97,7 +97,7 @@ function ProfileScreen({ history }) {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </Form.Group>
-                <Form.Group controlId='passwordConfirm'>
+                <Form.Group controlId='passwordConfirm' className='mt-3'>
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control
                         type='password'
@@ -106,9 +106,13 @@ function ProfileScreen({ history }) {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </Form.Group>
-                <Button type='submit' variant='primary'>
-                    Update Profile
-                </Button>
+                <Row className='mt-3'>
+                    <Col className='text-center'>
+                        <Button type='submit' variant='primary'>
+                            Update Profile
+                        </Button>
+                    </Col>
+                </Row>
             </Form>
             </Col>
             <Col md={9}>
